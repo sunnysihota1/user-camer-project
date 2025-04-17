@@ -192,19 +192,21 @@ function startFaceDetection() {
     }, 100);
 }
 
-// Add orientation change handler
-let orientationChangeTimeout;
-window.addEventListener('orientationchange', () => {
-    // Clear any existing timeout
-    if (orientationChangeTimeout) {
-        clearTimeout(orientationChangeTimeout);
-    }
-    
-    // Set a new timeout to reload after orientation change is complete
-    orientationChangeTimeout = setTimeout(() => {
+// Track last orientation to prevent multiple reloads
+let lastOrientation = window.orientation;
+
+// Function to handle orientation change
+function handleOrientationChange() {
+    const currentOrientation = window.orientation;
+    if (currentOrientation !== lastOrientation) {
+        lastOrientation = currentOrientation;
         window.location.reload();
-    }, 100);
-});
+    }
+}
+
+// Add multiple event listeners to catch orientation changes
+window.addEventListener('orientationchange', handleOrientationChange);
+window.addEventListener('resize', handleOrientationChange);
 
 // Event listeners
 document.getElementById('startCamera').addEventListener('click', toggleCamera);
