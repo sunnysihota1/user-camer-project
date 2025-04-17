@@ -194,38 +194,8 @@ function startFaceDetection() {
 
 // Add orientation change handler
 window.addEventListener('orientationchange', () => {
-    // Small delay to ensure the orientation has changed
-    setTimeout(() => {
-        if (stream && stream.active) {
-            // Get the current video dimensions
-            const videoWidth = video.videoWidth;
-            const videoHeight = video.videoHeight;
-            
-            // Clear the canvas
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            // Set canvas dimensions based on orientation
-            if (window.orientation === 0 || window.orientation === 180) {
-                // Portrait
-                canvas.width = videoHeight;
-                canvas.height = videoWidth;
-            } else {
-                // Landscape
-                canvas.width = videoWidth;
-                canvas.height = videoHeight;
-            }
-            
-            // Redraw the video
-            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-            
-            // Apply current filter if any
-            if (isGrayscale) {
-                applyGrayscale();
-            } else if (isThermal) {
-                applyThermal();
-            }
-        }
-    }, 100);
+    // Reload the page when orientation changes
+    window.location.reload();
 });
 
 // Event listeners
