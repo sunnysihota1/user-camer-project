@@ -193,9 +193,17 @@ function startFaceDetection() {
 }
 
 // Add orientation change handler
+let orientationChangeTimeout;
 window.addEventListener('orientationchange', () => {
-    // Reload the page when orientation changes
-    window.location.reload();
+    // Clear any existing timeout
+    if (orientationChangeTimeout) {
+        clearTimeout(orientationChangeTimeout);
+    }
+    
+    // Set a new timeout to reload after orientation change is complete
+    orientationChangeTimeout = setTimeout(() => {
+        window.location.reload();
+    }, 100);
 });
 
 // Event listeners
