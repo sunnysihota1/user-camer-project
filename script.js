@@ -192,6 +192,19 @@ function startFaceDetection() {
     }, 100);
 }
 
+// Add orientation change handler
+window.addEventListener('orientationchange', () => {
+    // Small delay to ensure the orientation has changed
+    setTimeout(() => {
+        // Force a redraw of the canvas
+        if (stream && stream.active) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+        }
+    }, 100);
+});
+
 // Event listeners
 document.getElementById('startCamera').addEventListener('click', toggleCamera);
 
