@@ -58,14 +58,18 @@ video, canvas {
 /* Mobile landscape orientation */
 @media screen and (orientation: landscape) {
     .camera-container {
-        width: 100%;
-        height: 100%;
+        width: 100vw;
+        height: 100vh;
     }
     
     video, canvas {
         width: 100%;
         height: 100%;
         object-fit: cover;
+    }
+    
+    .controls {
+        bottom: 20px;
     }
 }
 
