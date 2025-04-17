@@ -26,15 +26,47 @@ body {
     width: 100%;
     height: 100%;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 video, canvas {
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+/* Mobile portrait orientation */
+@media screen and (orientation: portrait) {
+    .camera-container {
+        aspect-ratio: 9/16;
+        max-width: 100vw;
+        max-height: 100vh;
+    }
+    
+    video, canvas {
+        width: auto;
+        height: 100%;
+    }
+}
+
+/* Mobile landscape orientation */
+@media screen and (orientation: landscape) {
+    .camera-container {
+        aspect-ratio: 16/9;
+        max-width: 100vw;
+        max-height: 100vh;
+    }
+    
+    video, canvas {
+        width: 100%;
+        height: auto;
+    }
 }
 
 canvas {
@@ -52,6 +84,8 @@ canvas {
     z-index: 2;
     opacity: 0;
     transition: opacity 0.3s ease;
+    width: 90%;
+    max-width: 500px;
 }
 
 .controls:hover {
