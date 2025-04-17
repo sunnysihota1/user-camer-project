@@ -192,28 +192,21 @@ function startFaceDetection() {
     }, 100);
 }
 
-// Track last orientation to prevent multiple reloads
-let lastOrientation = window.orientation;
-
-// Function to handle orientation change
-function handleOrientationChange() {
-    const currentOrientation = window.orientation;
-    
-    // Force reload when switching from landscape to portrait
-    if ((lastOrientation === 90 || lastOrientation === -90) && (currentOrientation === 0 || currentOrientation === 180)) {
+// Simple orientation change handler
+window.addEventListener('orientationchange', () => {
+    // Force reload after a short delay
+    setTimeout(() => {
         window.location.reload();
-    }
-    // Also reload when switching from portrait to landscape
-    else if ((lastOrientation === 0 || lastOrientation === 180) && (currentOrientation === 90 || currentOrientation === -90)) {
-        window.location.reload();
-    }
-    
-    lastOrientation = currentOrientation;
-}
+    }, 50);
+});
 
-// Add multiple event listeners to catch orientation changes
-window.addEventListener('orientationchange', handleOrientationChange);
-window.addEventListener('resize', handleOrientationChange);
+// Also listen for resize events which sometimes accompany orientation changes
+window.addEventListener('resize', () => {
+    // Force reload after a short delay
+    setTimeout(() => {
+        window.location.reload();
+    }, 50);
+});
 
 // Event listeners
 document.getElementById('startCamera').addEventListener('click', toggleCamera);
