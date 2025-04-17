@@ -198,10 +198,17 @@ let lastOrientation = window.orientation;
 // Function to handle orientation change
 function handleOrientationChange() {
     const currentOrientation = window.orientation;
-    if (currentOrientation !== lastOrientation) {
-        lastOrientation = currentOrientation;
+    
+    // Force reload when switching from landscape to portrait
+    if ((lastOrientation === 90 || lastOrientation === -90) && (currentOrientation === 0 || currentOrientation === 180)) {
         window.location.reload();
     }
+    // Also reload when switching from portrait to landscape
+    else if ((lastOrientation === 0 || lastOrientation === 180) && (currentOrientation === 90 || currentOrientation === -90)) {
+        window.location.reload();
+    }
+    
+    lastOrientation = currentOrientation;
 }
 
 // Add multiple event listeners to catch orientation changes
